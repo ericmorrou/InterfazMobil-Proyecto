@@ -33,9 +33,6 @@ public class CartActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_cart);
 
-        // AÑADIDO: Inicializamos el BitmapManager
-        BitmapManager.inicializar(this);
-
         contenedorProductos = findViewById(R.id.contenedor_productos_carrito);
         textoSubtotal = findViewById(R.id.texto_subtotal);
         textoDelivery = findViewById(R.id.texto_delivery);
@@ -53,9 +50,13 @@ public class CartActivity extends AppCompatActivity {
             String totalDelPedido = textoTotal.getText().toString();
             SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy", Locale.getDefault());
             String fechaActual = sdf.format(new Date());
-            int imagenDelPedido = productosEnCarrito.get(0).getImagenResId();
+
+            int imagenDelPedido = R.drawable.ic_order_bag;
+
             Pedido nuevoPedido = new Pedido("Delivering", fechaActual, totalDelPedido, imagenDelPedido);
-            PedidosManager.agregarPedido(nuevoPedido);
+
+            PedidosManager.agregarPedido(CartActivity.this, nuevoPedido);
+
             CarritoManager.limpiarCarrito();
             Toast.makeText(this, "¡Pedido realizado con éxito!", Toast.LENGTH_LONG).show();
             Intent intent = new Intent(CartActivity.this, OrdersActivity.class);
@@ -64,28 +65,12 @@ public class CartActivity extends AppCompatActivity {
         });
 
         actualizarCarritoUI();
-        // AÑADIDO: Llamamos a la nueva función de navegación
         configurarNavegacion();
     }
 
-    // AÑADIDO: La función de navegación copiada y pegada
     private void configurarNavegacion() {
         BottomNavigationView bottomNavigationView = findViewById(R.id.bottom_navigation);
         bottomNavigationView.setSelectedItemId(R.id.nav_cart);
-
-        // Lógica para poner los iconos del BitmapManager
-        Menu menu = bottomNavigationView.getMenu();
-        MenuItem itemHome = menu.findItem(R.id.nav_home);
-        MenuItem itemMenu = menu.findItem(R.id.nav_menu);
-        MenuItem itemCart = menu.findItem(R.id.nav_cart);
-        MenuItem itemOrders = menu.findItem(R.id.nav_orders);
-
-        if (itemHome != null) itemHome.setIcon(BitmapManager.getIcono(this, "home"));
-        if (itemMenu != null) itemMenu.setIcon(BitmapManager.getIcono(this, "menu"));
-        if (itemCart != null) itemCart.setIcon(BitmapManager.getIcono(this, "cart"));
-        if (itemOrders != null) itemOrders.setIcon(BitmapManager.getIcono(this, "camion"));
-
-        // Lógica para los clicks
         bottomNavigationView.setOnItemSelectedListener(item -> {
             int itemId = item.getItemId();
             if (itemId == R.id.nav_cart) return true;
@@ -153,3 +138,4 @@ public class CartActivity extends AppCompatActivity {
         }
     }
 }
+

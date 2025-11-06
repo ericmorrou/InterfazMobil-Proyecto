@@ -1,21 +1,19 @@
 package com.example.myapplication;
 
-public class Pedido {
+import java.io.Serializable;
 
+public class Pedido implements Serializable {
     private String estado;
     private String fecha;
-    private String total;
-    private int imagenResId; // <--- ¡EL CAMPO QUE NECESITAMOS!
+    private String precioTotal;
+    private int imagenResId;
 
-    // Constructor modificado para aceptar la imagen
-    public Pedido(String estado, String fecha, String total, int imagenResId) {
+    public Pedido(String estado, String fecha, String precioTotal, int imagenResId) {
         this.estado = estado;
         this.fecha = fecha;
-        this.total = total;
-        this.imagenResId = imagenResId; // Guardamos el ID de la imagen
+        this.precioTotal = precioTotal;
+        this.imagenResId = imagenResId;
     }
-
-    // --- GETTERS para cada campo ---
 
     public String getEstado() {
         return estado;
@@ -25,11 +23,11 @@ public class Pedido {
         return fecha;
     }
 
-    public String getTotal() {
-        return total;
+    public String getPrecioTotal() {
+        return precioTotal;
     }
 
     public int getImagenResId() {
-        return imagenResId; // <--- Getter para la imagen
+        return imagenResId;
     }
 }

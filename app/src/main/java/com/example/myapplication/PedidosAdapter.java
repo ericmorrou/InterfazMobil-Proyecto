@@ -33,7 +33,7 @@ public class PedidosAdapter extends RecyclerView.Adapter<PedidosAdapter.PedidoVi
         Pedido pedido = listaDePedidos.get(position);
         holder.textoEstado.setText(pedido.getEstado());
         holder.textoFecha.setText(pedido.getFecha());
-        holder.textoTotal.setText(pedido.getTotal());
+        holder.textoTotal.setText(pedido.getPrecioTotal());
         Glide.with(context).load(pedido.getImagenResId()).into(holder.imagenPedido);
     }
 
@@ -42,16 +42,12 @@ public class PedidosAdapter extends RecyclerView.Adapter<PedidosAdapter.PedidoVi
         return listaDePedidos != null ? listaDePedidos.size() : 0;
     }
 
-    // --- AQUI ESTÁ LA CORRECCIÓN ---
-    // Este es el método que tu OrdersActivity necesita.
-    // Limpia la lista actual, añade todos los pedidos nuevos y notifica al RecyclerView
-    // para que se redibuje.
     public void actualizarPedidos(List<Pedido> nuevosPedidos) {
         this.listaDePedidos.clear();
         if (nuevosPedidos != null) {
             this.listaDePedidos.addAll(nuevosPedidos);
         }
-        notifyDataSetChanged(); // ¡Esta línea es clave! Redibuja la lista.
+        notifyDataSetChanged();
     }
 
 
