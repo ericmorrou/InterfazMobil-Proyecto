@@ -3,6 +3,8 @@ package com.example.myapplication;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -30,6 +32,9 @@ public class CartActivity extends AppCompatActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_cart);
+
+        // AÑADIDO: Inicializamos el BitmapManager
+        BitmapManager.inicializar(this);
 
         contenedorProductos = findViewById(R.id.contenedor_productos_carrito);
         textoSubtotal = findViewById(R.id.texto_subtotal);
@@ -59,33 +64,49 @@ public class CartActivity extends AppCompatActivity {
         });
 
         actualizarCarritoUI();
+        // AÑADIDO: Llamamos a la nueva función de navegación
         configurarNavegacion();
     }
 
+    // AÑADIDO: La función de navegación copiada y pegada
     private void configurarNavegacion() {
         BottomNavigationView bottomNavigationView = findViewById(R.id.bottom_navigation);
         bottomNavigationView.setSelectedItemId(R.id.nav_cart);
 
+        // Lógica para poner los iconos del BitmapManager
+        Menu menu = bottomNavigationView.getMenu();
+        MenuItem itemHome = menu.findItem(R.id.nav_home);
+        MenuItem itemMenu = menu.findItem(R.id.nav_menu);
+        MenuItem itemCart = menu.findItem(R.id.nav_cart);
+        MenuItem itemOrders = menu.findItem(R.id.nav_orders);
+
+        if (itemHome != null) itemHome.setIcon(BitmapManager.getIcono(this, "home"));
+        if (itemMenu != null) itemMenu.setIcon(BitmapManager.getIcono(this, "menu"));
+        if (itemCart != null) itemCart.setIcon(BitmapManager.getIcono(this, "cart"));
+        if (itemOrders != null) itemOrders.setIcon(BitmapManager.getIcono(this, "camion"));
+
+        // Lógica para los clicks
         bottomNavigationView.setOnItemSelectedListener(item -> {
             int itemId = item.getItemId();
             if (itemId == R.id.nav_cart) return true;
 
             Intent proximaActividad = null;
-            if (itemId == R.id.nav_home) proximaActividad = new Intent(this, StoreActivity.class);
-            else if (itemId == R.id.nav_menu) proximaActividad = new Intent(this, MenuActivity.class);
-            else if (itemId == R.id.nav_orders) proximaActividad = new Intent(this, OrdersActivity.class);
-            else if (itemId == R.id.nav_profile) proximaActividad = new Intent(this, ProfileActivity.class);
+            if (itemId == R.id.nav_home) {
+                proximaActividad = new Intent(this, StoreActivity.class);
+            } else if (itemId == R.id.nav_menu) {
+                proximaActividad = new Intent(this, MenuActivity.class);
+            } else if (itemId == R.id.nav_orders) {
+                proximaActividad = new Intent(this, OrdersActivity.class);
+            } else if (itemId == R.id.nav_profile) {
+                proximaActividad = new Intent(this, ProfileActivity.class);
+            }
 
             if (proximaActividad != null) {
-                // --- AQUI ESTÁ LA CORRECCIÓN ---
-                // Se obtiene la instancia única del UserManager y luego los datos.
+                proximaActividad.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);
                 Bundle userData = UserManager.getInstance().getUserData();
-                if (userData != null) {
-                    proximaActividad.putExtras(userData);
-                }
+                if (userData != null) proximaActividad.putExtras(userData);
                 startActivity(proximaActividad);
                 overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
-                finish();
             }
             return true;
         });

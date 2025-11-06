@@ -2,6 +2,8 @@ package com.example.myapplication;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.widget.Button;
 import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
@@ -13,6 +15,7 @@ public class StoreActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_store);
+        BitmapManager.inicializar(this);
 
         Button botonAddJudas = findViewById(R.id.boton_add_1);
         Button botonAddPecado = findViewById(R.id.boton_add_2);
@@ -36,11 +39,20 @@ public class StoreActivity extends AppCompatActivity {
         BottomNavigationView bottomNavigationView = findViewById(R.id.bottom_navigation);
         bottomNavigationView.setSelectedItemId(R.id.nav_home);
 
+        Menu menu = bottomNavigationView.getMenu();
+        MenuItem itemHome = menu.findItem(R.id.nav_home);
+        MenuItem itemMenu = menu.findItem(R.id.nav_menu);
+        MenuItem itemCart = menu.findItem(R.id.nav_cart);
+        MenuItem itemOrders = menu.findItem(R.id.nav_orders);
+
+        if (itemHome != null) itemHome.setIcon(BitmapManager.getIcono(this, "home"));
+        if (itemMenu != null) itemMenu.setIcon(BitmapManager.getIcono(this, "menu"));
+        if (itemCart != null) itemCart.setIcon(BitmapManager.getIcono(this, "cart"));
+        if (itemOrders != null) itemOrders.setIcon(BitmapManager.getIcono(this, "camion"));
+
         bottomNavigationView.setOnItemSelectedListener(item -> {
             int itemId = item.getItemId();
-            if (itemId == R.id.nav_home) {
-                return true;
-            }
+            if (itemId == R.id.nav_home) return true;
 
             Intent proximaActividad = null;
             if (itemId == R.id.nav_menu) {
@@ -54,14 +66,11 @@ public class StoreActivity extends AppCompatActivity {
             }
 
             if (proximaActividad != null) {
+                proximaActividad.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);
                 Bundle userData = UserManager.getInstance().getUserData();
-                if (userData != null) {
-                    proximaActividad.putExtras(userData);
-                }
-
+                if (userData != null) proximaActividad.putExtras(userData);
                 startActivity(proximaActividad);
                 overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
-                finish();
             }
             return true;
         });

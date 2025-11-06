@@ -2,11 +2,13 @@ package com.example.myapplication;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.widget.Button;
 import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
-import com.google.android.material.button.MaterialButton; // Importante para tu tipo de botón
+import com.google.android.material.button.MaterialButton;
 
 public class MenuActivity extends AppCompatActivity {
 
@@ -15,45 +17,46 @@ public class MenuActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_menu);
 
-        // --- ENLAZAMOS LOS BOTONES USANDO LOS IDS REALES DE TU XML ---
+        BitmapManager.inicializar(this);
+
         MaterialButton botonAddProducto1 = findViewById(R.id.boton_add_1);
         MaterialButton botonAddProducto2 = findViewById(R.id.boton_add_2);
         Button botonOrderNowHeader = findViewById(R.id.button_order_now);
 
-        // --- LÓGICA PARA EL PRIMER PRODUCTO: Brazo de Judas ---
         botonAddProducto1.setOnClickListener(v -> {
-            // Creamos el producto con sus datos exactos
             Producto producto = new Producto("Brazo de Judas", "8.99", R.drawable.brazodejudas);
-
-            // Lo añadimos al carrito
             CarritoManager.agregarProducto(producto);
-
-            // Informamos al usuario
             Toast.makeText(this, "Brazo de Judas añadido al carrito", Toast.LENGTH_SHORT).show();
         });
 
-        // --- LÓGICA PARA EL SEGUNDO PRODUCTO: Pecado Original ---
         botonAddProducto2.setOnClickListener(v -> {
             Producto producto = new Producto("Pecado Original", "4.50", R.drawable.croissant);
             CarritoManager.agregarProducto(producto);
             Toast.makeText(this, "Pecado Original añadido al carrito", Toast.LENGTH_SHORT).show();
         });
 
-        // --- LÓGICA PARA EL BOTÓN 'ORDER NOW' DE LA CABECERA ---
-        // Este botón debería llevar directamente al carrito.
         botonOrderNowHeader.setOnClickListener(v -> {
             Intent intent = new Intent(MenuActivity.this, CartActivity.class);
             startActivity(intent);
-            // No usamos finish() aquí para que el usuario pueda volver atrás si quiere
         });
 
-        // --- CONFIGURAMOS LA NAVEGACIÓN INFERIOR (esto ya estaba bien) ---
         configurarNavegacion();
     }
 
     private void configurarNavegacion() {
         BottomNavigationView bottomNavigationView = findViewById(R.id.bottom_navigation);
         bottomNavigationView.setSelectedItemId(R.id.nav_menu);
+
+        Menu menu = bottomNavigationView.getMenu();
+        MenuItem itemHome = menu.findItem(R.id.nav_home);
+        MenuItem itemMenu = menu.findItem(R.id.nav_menu);
+        MenuItem itemCart = menu.findItem(R.id.nav_cart);
+        MenuItem itemOrders = menu.findItem(R.id.nav_orders);
+
+        if (itemHome != null) itemHome.setIcon(BitmapManager.getIcono(this, "home"));
+        if (itemMenu != null) itemMenu.setIcon(BitmapManager.getIcono(this, "menu"));
+        if (itemCart != null) itemCart.setIcon(BitmapManager.getIcono(this, "cart"));
+        if (itemOrders != null) itemOrders.setIcon(BitmapManager.getIcono(this, "camion"));
 
         bottomNavigationView.setOnItemSelectedListener(item -> {
             int itemId = item.getItemId();
@@ -71,9 +74,11 @@ public class MenuActivity extends AppCompatActivity {
             }
 
             if (proximaActividad != null) {
+                proximaActividad.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);
+                Bundle userData = UserManager.getInstance().getUserData();
+                if (userData != null) proximaActividad.putExtras(userData);
                 startActivity(proximaActividad);
                 overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
-                finish();
             }
             return true;
         });

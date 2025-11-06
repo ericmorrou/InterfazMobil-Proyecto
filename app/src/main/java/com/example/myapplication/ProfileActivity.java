@@ -3,6 +3,8 @@ package com.example.myapplication;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.Spinner;
@@ -36,6 +38,8 @@ public class ProfileActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile);
 
+        BitmapManager.inicializar(this);
+
         imagenPerfil = findViewById(R.id.imagen_perfil);
         nombreUsuarioPerfil = findViewById(R.id.nombre_usuario_perfil);
         spinnerTiendas = findViewById(R.id.spinner_tiendas);
@@ -47,10 +51,8 @@ public class ProfileActivity extends AppCompatActivity {
 
     private void cargarDatosDeUsuario() {
         Bundle userData = UserManager.getInstance().getUserData();
-
         if (userData != null) {
             nombreUsuarioPerfil.setText(userData.getString("NOMBRE_COMPLETO"));
-
             Glide.with(this)
                     .load(R.drawable.default_user)
                     .circleCrop()
@@ -63,7 +65,6 @@ public class ProfileActivity extends AppCompatActivity {
     private void cargarTiendasEnSpinner() {
         String url = "http://10.0.2.2/get_tiendas.php";
         RequestQueue queue = Volley.newRequestQueue(this);
-
         List<String> nombresLocalidades = new ArrayList<>();
         ArrayAdapter<String> spinnerAdapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, nombresLocalidades);
         spinnerAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
@@ -100,11 +101,20 @@ public class ProfileActivity extends AppCompatActivity {
         BottomNavigationView bottomNavigationView = findViewById(R.id.bottom_navigation);
         bottomNavigationView.setSelectedItemId(R.id.nav_profile);
 
+        Menu menu = bottomNavigationView.getMenu();
+        MenuItem itemHome = menu.findItem(R.id.nav_home);
+        MenuItem itemMenu = menu.findItem(R.id.nav_menu);
+        MenuItem itemCart = menu.findItem(R.id.nav_cart);
+        MenuItem itemOrders = menu.findItem(R.id.nav_orders);
+
+        if (itemHome != null) itemHome.setIcon(BitmapManager.getIcono(this, "home"));
+        if (itemMenu != null) itemMenu.setIcon(BitmapManager.getIcono(this, "menu"));
+        if (itemCart != null) itemCart.setIcon(BitmapManager.getIcono(this, "cart"));
+        if (itemOrders != null) itemOrders.setIcon(BitmapManager.getIcono(this, "camion"));
+
         bottomNavigationView.setOnItemSelectedListener(item -> {
             int itemId = item.getItemId();
-            if (itemId == R.id.nav_profile) {
-                return true;
-            }
+            if (itemId == R.id.nav_profile) return true;
 
             Intent proximaActividad = null;
             if (itemId == R.id.nav_home) {
@@ -118,9 +128,11 @@ public class ProfileActivity extends AppCompatActivity {
             }
 
             if (proximaActividad != null) {
+                proximaActividad.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);
+                Bundle userData = UserManager.getInstance().getUserData();
+                if (userData != null) proximaActividad.putExtras(userData);
                 startActivity(proximaActividad);
                 overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
-                finish();
             }
             return true;
         });
