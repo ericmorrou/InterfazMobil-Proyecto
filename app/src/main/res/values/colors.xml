@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="black">#FF000000</color>
+    <color name="white">#FFFFFFFF</color>
+    <color name="colorPrimary">#0f9d58</color>
+    <color name="colorPrimaryDark">#006d2d</color>
+    <color name="colorAccent">#88CF55</color>
+    <color name="colorBotonNaranja">#FF9966</color>
+    <color name="colorBotonNaranjaHover">#FF8750</color> <!-- Lo guardamos aunque en Android se gestiona distinto -->
+    <color name="colorTextoNaranja">#ff8750</color>
+</resources>
