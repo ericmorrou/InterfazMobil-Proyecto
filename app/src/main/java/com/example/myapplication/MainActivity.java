@@ -23,7 +23,7 @@ public class MainActivity extends AppCompatActivity {
     private Button btnLogin;
     private TextView tvCrearCuenta;
     private RequestQueue queue;
-    private static final String URL_LOGIN = "http://10.0.2.2/login.php";
+    private static final String URL_LOGIN = "http://10.0.2.2/jesuscrust/login.php";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -70,9 +70,6 @@ public class MainActivity extends AppCompatActivity {
                             String nombreCompleto = datosUsuario.getString("nombre_completo");
                             String urlImagen = datosUsuario.getString("url_imagen");
 
-                            // --- AQUI ESTÁ LA CORRECCIÓN ---
-                            // 1. Obtener la instancia única del Singleton
-                            // 2. Llamar al método setUserData en esa instancia
                             UserManager.getInstance().setUserData(nombreCompleto, urlImagen);
 
                             Intent intent = new Intent(MainActivity.this, StoreActivity.class);

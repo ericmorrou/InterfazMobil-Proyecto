@@ -27,7 +27,6 @@
             android:layout_gravity="center_horizontal"/>
     </androidx.appcompat.widget.Toolbar>
 
-    <!-- RecyclerView para la lista de pedidos -->
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recycler_view_pedidos"
         android:layout_width="0dp"
@@ -38,7 +37,6 @@
         app:layout_constraintEnd_toEndOf="parent"
         tools:listitem="@layout/item_pedido" />
 
-    <!-- Mensaje para cuando no hay pedidos -->
     <TextView
         android:id="@+id/texto_sin_pedidos"
         android:layout_width="wrap_content"
@@ -60,6 +58,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:menu="@menu/bottom_nav_menu"
+        android:background="#FFFFFF"
         app:itemIconTint="@color/bottom_nav_color_selector"
         app:itemTextColor="@color/bottom_nav_color_selector"
         app:labelVisibilityMode="labeled"

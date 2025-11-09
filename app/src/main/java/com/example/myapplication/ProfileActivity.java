@@ -63,7 +63,7 @@ public class ProfileActivity extends AppCompatActivity {
     }
 
     private void cargarTiendasEnSpinner() {
-        String url = "http://10.0.2.2/get_tiendas.php";
+        String url = "http://10.0.2.2/jesuscrust/get_tiendas.php";
         RequestQueue queue = Volley.newRequestQueue(this);
         List<String> nombresLocalidades = new ArrayList<>();
         ArrayAdapter<String> spinnerAdapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, nombresLocalidades);

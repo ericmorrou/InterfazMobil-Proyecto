@@ -8,7 +8,7 @@
     android:background="#FDF5E6"
     tools:context=".CartActivity">
 
-    <!-- Barra superior -->
+
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbar_cart"
         android:layout_width="0dp"
@@ -28,7 +28,7 @@
             android:layout_gravity="center_horizontal"/>
     </androidx.appcompat.widget.Toolbar>
 
-    <!-- MENSAJE DE CARRITO VACÍO -->
+
     <TextView
         android:id="@+id/texto_carrito_vacio"
         android:layout_width="wrap_content"
@@ -43,7 +43,6 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
 
-    <!-- CONTENIDO DEL CARRITO -->
     <ScrollView
         android:id="@+id/scroll_view_cart"
         android:layout_width="0dp"
@@ -61,7 +60,7 @@
             android:padding="8dp"/>
     </ScrollView>
 
-    <!-- Tarjeta con el resumen del pago -->
+
     <androidx.cardview.widget.CardView
         android:id="@+id/card_resumen_pago"
         android:layout_width="0dp"
@@ -77,7 +76,7 @@
             android:orientation="vertical"
             android:padding="16dp">
 
-            <!-- Subtotal -->
+
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
@@ -85,7 +84,7 @@
                 <TextView android:id="@+id/texto_subtotal" android:layout_alignParentEnd="true" tools:text="$13.49" android:layout_width="wrap_content" android:layout_height="wrap_content"/>
             </RelativeLayout>
 
-            <!-- Delivery -->
+
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" android:layout_marginTop="8dp">
@@ -93,10 +92,10 @@
                 <TextView android:id="@+id/texto_delivery" android:layout_alignParentEnd="true" tools:text="$3.50" android:layout_width="wrap_content" android:layout_height="wrap_content"/>
             </RelativeLayout>
 
-            <!-- Separador -->
+
             <View android:layout_width="match_parent" android:layout_height="1dp" android:background="#CCCCCC" android:layout_marginVertical="8dp"/>
 
-            <!-- Total -->
+
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
@@ -104,7 +103,7 @@
                 <TextView android:id="@+id/texto_total" android:textStyle="bold" android:textSize="18sp" android:layout_alignParentEnd="true" tools:text="$16.99" android:layout_width="wrap_content" android:layout_height="wrap_content"/>
             </RelativeLayout>
 
-            <!-- Botón de Pagar -->
+
             <Button
                 android:id="@+id/button_order_now"
                 android:layout_width="match_parent"
@@ -115,14 +114,14 @@
         </LinearLayout>
     </androidx.cardview.widget.CardView>
 
-    <!-- GRUPO PARA MOSTRAR/OCULTAR CONTENIDO -->
+
     <androidx.constraintlayout.widget.Group
         android:id="@+id/group_contenido_carrito"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:constraint_referenced_ids="scroll_view_cart,card_resumen_pago" />
 
-    <!-- Menú de navegación inferior -->
+
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/bottom_navigation"
         android:layout_width="0dp"
@@ -131,8 +130,10 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:menu="@menu/bottom_nav_menu"
+        android:background="#FFFFFF"
         app:itemIconTint="@color/bottom_nav_color_selector"
         app:itemTextColor="@color/bottom_nav_color_selector"
-        app:labelVisibilityMode="labeled"/>
+        app:labelVisibilityMode="labeled"
+        />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

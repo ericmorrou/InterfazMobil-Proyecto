@@ -8,7 +8,6 @@
     android:background="@color/white"
     tools:context=".MenuActivity">
 
-    <!-- El contenido principal ahora está dentro de un ScrollView restringido -->
     <androidx.core.widget.NestedScrollView
         android:id="@+id/content_scroll_view"
         android:layout_width="0dp"
@@ -24,7 +23,6 @@
             android:orientation="vertical"
             android:paddingBottom="16dp">
 
-            <!-- 1. Barra superior con color sólido -->
             <LinearLayout
                 android:id="@+id/barra_superior"
                 android:layout_width="match_parent"
@@ -62,7 +60,6 @@
                     app:tint="@color/white"/>
             </LinearLayout>
 
-            <!-- 2. "Hero Section" con el fondo degradado (CON ALTURA FIJA) -->
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="146dp"
@@ -105,7 +102,6 @@
                     app:cornerRadius="24dp" />
             </LinearLayout>
 
-            <!-- 3. Main Content (sección inferior) -->
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -113,7 +109,6 @@
                 android:orientation="vertical"
                 android:padding="16dp">
 
-                <!-- Today's Special Section -->
                 <TextView
                     android:id="@+id/titulo_featured"
                     android:layout_width="wrap_content"
@@ -124,7 +119,6 @@
                     android:textSize="18sp"
                     android:textStyle="bold" />
 
-                <!-- INICIO DE LA SECCIÓN DE PRODUCTOS -->
 
                 <androidx.cardview.widget.CardView
                     android:id="@+id/card_producto_1"
@@ -256,9 +250,6 @@
                     </androidx.constraintlayout.widget.ConstraintLayout>
                 </androidx.cardview.widget.CardView>
 
-                <!-- FIN DE LA SECCIÓN DE PRODUCTOS -->
-
-                <!-- Categories Section -->
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -276,7 +267,6 @@
                     android:gravity="center_vertical"
                     android:orientation="horizontal">
 
-                    <!-- Categoría Breads -->
                     <LinearLayout
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -315,7 +305,6 @@
                         android:layout_height="0dp"
                         android:layout_weight="1" />
 
-                    <!-- Categoría Pastries -->
                     <LinearLayout
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -354,7 +343,6 @@
                         android:layout_height="0dp"
                         android:layout_weight="1" />
 
-                    <!-- Categoría Cakes -->
                     <LinearLayout
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -392,21 +380,18 @@
         </LinearLayout>
     </androidx.core.widget.NestedScrollView>
 
-    <!-- Barra de Navegación Inferior -->
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/bottom_navigation"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:background="#FFFFFF"
-        app:itemIconTint="@drawable/bottom_nav_color"
-        app:itemTextColor="@drawable/bottom_nav_color"
-        app:labelVisibilityMode="labeled"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:menu="@menu/bottom_nav_menu">
-
-    </com.google.android.material.bottomnavigation.BottomNavigationView>
-    <!-- app:selectedItemId="@id/nav_menu" /--> <!-- LÍNEA COMENTADA TEMPORALMENTE -->
+        app:layout_constraintEnd_toEndOf="parent"
+        app:menu="@menu/bottom_nav_menu"
+        android:background="#FFFFFF"
+        app:itemIconTint="@color/bottom_nav_color_selector"
+        app:itemTextColor="@color/bottom_nav_color_selector"
+        app:labelVisibilityMode="labeled"
+        />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
