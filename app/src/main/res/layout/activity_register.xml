@@ -8,7 +8,6 @@
     android:background="@drawable/fondo"
     tools:context=".RegisterActivity">
 
-    <!-- Capa oscura para mejorar legibilidad -->
     <View
         android:id="@+id/overlay"
         android:layout_width="0dp"

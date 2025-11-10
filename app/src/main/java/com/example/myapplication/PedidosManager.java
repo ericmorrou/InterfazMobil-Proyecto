@@ -58,9 +58,4 @@ public class PedidosManager {
         pedidosActuales.add(0, nuevoPedido);
         guardarPedidos(context, pedidosActuales);
     }
-
-    public static void limpiarPedidos(Context context) {
-        List<Pedido> listaVacia = new ArrayList<>();
-        guardarPedidos(context, listaVacia);
-    }
 }

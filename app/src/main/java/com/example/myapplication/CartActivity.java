@@ -3,8 +3,6 @@ package com.example.myapplication;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -128,7 +126,8 @@ public class CartActivity extends AppCompatActivity {
                 contenedorProductos.addView(vistaProducto);
                 try {
                     subtotal += Double.parseDouble(producto.getPrecio());
-                } catch (NumberFormatException e) { /* Ignorar */ }
+                } catch (NumberFormatException e) {
+                }
             }
             double delivery = 3.50;
             double total = subtotal + delivery;
@@ -138,4 +137,3 @@ public class CartActivity extends AppCompatActivity {
         }
     }
 }
-

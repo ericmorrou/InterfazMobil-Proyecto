@@ -6,6 +6,6 @@
     <color name="colorPrimaryDark">#006d2d</color>
     <color name="colorAccent">#88CF55</color>
     <color name="colorBotonNaranja">#FF9966</color>
-    <color name="colorBotonNaranjaHover">#FF8750</color> <!-- Lo guardamos aunque en Android se gestiona distinto -->
+    <color name="colorBotonNaranjaHover">#FF8750</color>
     <color name="colorTextoNaranja">#ff8750</color>
 </resources>

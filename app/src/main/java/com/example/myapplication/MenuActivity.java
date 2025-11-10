@@ -2,8 +2,6 @@ package com.example.myapplication;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.widget.Button;
 import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
@@ -16,8 +14,6 @@ public class MenuActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_menu);
-
-        BitmapManager.inicializar(this);
 
         MaterialButton botonAddProducto1 = findViewById(R.id.boton_add_1);
         MaterialButton botonAddProducto2 = findViewById(R.id.boton_add_2);
@@ -46,17 +42,6 @@ public class MenuActivity extends AppCompatActivity {
     private void configurarNavegacion() {
         BottomNavigationView bottomNavigationView = findViewById(R.id.bottom_navigation);
         bottomNavigationView.setSelectedItemId(R.id.nav_menu);
-
-        Menu menu = bottomNavigationView.getMenu();
-        MenuItem itemHome = menu.findItem(R.id.nav_home);
-        MenuItem itemMenu = menu.findItem(R.id.nav_menu);
-        MenuItem itemCart = menu.findItem(R.id.nav_cart);
-        MenuItem itemOrders = menu.findItem(R.id.nav_orders);
-
-        if (itemHome != null) itemHome.setIcon(BitmapManager.getIcono(this, "home"));
-        if (itemMenu != null) itemMenu.setIcon(BitmapManager.getIcono(this, "menu"));
-        if (itemCart != null) itemCart.setIcon(BitmapManager.getIcono(this, "cart"));
-        if (itemOrders != null) itemOrders.setIcon(BitmapManager.getIcono(this, "camion"));
 
         bottomNavigationView.setOnItemSelectedListener(item -> {
             int itemId = item.getItemId();

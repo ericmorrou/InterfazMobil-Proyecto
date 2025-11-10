@@ -25,7 +25,6 @@
             android:orientation="vertical"
             android:padding="20dp">
 
-            <!-- Input Usuario -->
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -46,7 +45,6 @@
                 android:padding="10dp"
                 android:fontFamily="@font/misfuentes"/>
 
-            <!-- Input Contraseña -->
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -95,4 +93,3 @@
         </LinearLayout>
     </androidx.cardview.widget.CardView>
 </androidx.constraintlayout.widget.ConstraintLayout>
-    

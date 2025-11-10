@@ -4,14 +4,14 @@ public class Producto {
 
     private String nombre;
     private String precio;
-    private int imagenResId; // Guardaremos el ID de la imagen (ej: R.drawable.brazodejudas)    // El constructor para crear un nuevo producto
+    private int imagenResId;
+
     public Producto(String nombre, String precio, int imagenResId) {
         this.nombre = nombre;
         this.precio = precio;
         this.imagenResId = imagenResId;
-    } // <--- La llave que faltaba por cerrar aquí
+    }
 
-    // Métodos para poder coger los datos del producto desde fuera
     public String getNombre() {
         return nombre;
     }
